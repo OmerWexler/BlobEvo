@@ -1,0 +1,9 @@
+{
+	"files.exclude": {
+		"D:/Cpp/BlobEvo/BlobEvo/.vs": true,
+		"D:/Cpp/BlobEvo/BlobEvo/.vscode": true,
+		"D:/Cpp/BlobEvo/BlobEvo/Content": true,
+		"D:/Cpp/BlobEvo/BlobEvo/Intermediate": true,
+		"D:/Cpp/BlobEvo/BlobEvo/Saved": true
+	}
+}
