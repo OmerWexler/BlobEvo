@@ -5,7 +5,7 @@
 			"name": "BlobEvo (Debug)",
 			"request": "launch",
 			"preLaunchTask": "BlobEvo Win64 Debug Build",
-			"program": "D:\\Cpp\\BlobEvo\\BlobEvo\\Binaries\\Win64\\UE4-Win64-Debug.exe",
+			"program": "D:\\Cpp\\BlobEvo\\BlobEvoClient\\Binaries\\Win64\\UE4-Win64-Debug.exe",
 			"args": [
 			],
 			"cwd": "D:\\Epic\\UE_4.25",
@@ -18,7 +18,7 @@
 			"name": "BlobEvo (DebugGame)",
 			"request": "launch",
 			"preLaunchTask": "BlobEvo Win64 DebugGame Build",
-			"program": "D:\\Cpp\\BlobEvo\\BlobEvo\\Binaries\\Win64\\UE4-Win64-DebugGame.exe",
+			"program": "D:\\Cpp\\BlobEvo\\BlobEvoClient\\Binaries\\Win64\\UE4-Win64-DebugGame.exe",
 			"args": [
 			],
 			"cwd": "D:\\Epic\\UE_4.25",
@@ -31,7 +31,7 @@
 			"name": "BlobEvo (Development)",
 			"request": "launch",
 			"preLaunchTask": "BlobEvo Win64 Development Build",
-			"program": "D:\\Cpp\\BlobEvo\\BlobEvo\\Binaries\\Win64\\UE4.exe",
+			"program": "D:\\Cpp\\BlobEvo\\BlobEvoClient\\Binaries\\Win64\\UE4.exe",
 			"args": [
 			],
 			"cwd": "D:\\Epic\\UE_4.25",
@@ -44,7 +44,7 @@
 			"name": "BlobEvo (Shipping)",
 			"request": "launch",
 			"preLaunchTask": "BlobEvo Win64 Shipping Build",
-			"program": "D:\\Cpp\\BlobEvo\\BlobEvo\\Binaries\\Win64\\UE4-Win64-Shipping.exe",
+			"program": "D:\\Cpp\\BlobEvo\\BlobEvoClient\\Binaries\\Win64\\UE4-Win64-Shipping.exe",
 			"args": [
 			],
 			"cwd": "D:\\Epic\\UE_4.25",
@@ -57,7 +57,7 @@
 			"name": "BlobEvo (Test)",
 			"request": "launch",
 			"preLaunchTask": "BlobEvo Win64 Test Build",
-			"program": "D:\\Cpp\\BlobEvo\\BlobEvo\\Binaries\\Win64\\UE4-Win64-Test.exe",
+			"program": "D:\\Cpp\\BlobEvo\\BlobEvoClient\\Binaries\\Win64\\UE4-Win64-Test.exe",
 			"args": [
 			],
 			"cwd": "D:\\Epic\\UE_4.25",
@@ -72,7 +72,7 @@
 			"preLaunchTask": "BlobEvoEditor Win64 Debug Build",
 			"program": "D:\\Epic\\UE_4.25\\Engine\\Binaries\\Win64\\UE4Editor-Win64-Debug.exe",
 			"args": [
-				"D:\\Cpp\\BlobEvo\\BlobEvo\\BlobEvo.uproject"
+				"D:\\Cpp\\BlobEvo\\BlobEvoClient\\BlobEvo.uproject"
 			],
 			"cwd": "D:\\Epic\\UE_4.25",
 			"stopAtEntry": false,
@@ -86,7 +86,7 @@
 			"preLaunchTask": "BlobEvoEditor Win64 DebugGame Build",
 			"program": "D:\\Epic\\UE_4.25\\Engine\\Binaries\\Win64\\UE4Editor-Win64-DebugGame.exe",
 			"args": [
-				"D:\\Cpp\\BlobEvo\\BlobEvo\\BlobEvo.uproject"
+				"D:\\Cpp\\BlobEvo\\BlobEvoClient\\BlobEvo.uproject"
 			],
 			"cwd": "D:\\Epic\\UE_4.25",
 			"stopAtEntry": false,
@@ -100,7 +100,7 @@
 			"preLaunchTask": "BlobEvoEditor Win64 Development Build",
 			"program": "D:\\Epic\\UE_4.25\\Engine\\Binaries\\Win64\\UE4Editor.exe",
 			"args": [
-				"D:\\Cpp\\BlobEvo\\BlobEvo\\BlobEvo.uproject"
+				"D:\\Cpp\\BlobEvo\\BlobEvoClient\\BlobEvo.uproject"
 			],
 			"cwd": "D:\\Epic\\UE_4.25",
 			"stopAtEntry": false,
@@ -117,7 +117,7 @@
 			"args": [
 				"-projectfiles",
 				"-vscode",
-				"-project=\"D:\\Cpp\\BlobEvo\\BlobEvo\\BlobEvo.uproject\"",
+				"-project=\"D:\\Cpp\\BlobEvo\\BlobEvoClient\\BlobEvo.uproject\"",
 				"-game",
 				"-engine"
 			],

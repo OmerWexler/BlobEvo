@@ -1,29 +1,47 @@
 import socket
-import sys
+import PlayerHandler
+import threading
 
+players = []
 
-def main(argv):
-    # getopt.getopt(args, options, [long_options])
-    host_name = socket.gethostname() 
-    host_ip = socket.gethostbyname(host_name) 
+def main():
+    client_accept_thread = threading.Thread(target=start_accepting_clients)
+    client_accept_thread.start()
 
-    print(host_name)
-    print(host_ip)
+    while True:
+        pass
+        
+def start_accepting_clients():
+    global players
+        
+    home_ip = "127.0.0.1" 
+    port = 63000
+    bind_successful = False
 
-def handle_client(client: Socket):
-    pass
+    while (not bind_successful):
+        try:
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            s.bind((home_ip, port))
+            bind_successful = True
+
+        except OSError as e:
+            print(e)
+            
+            if (e.errno == 10048): # Port already taken
+                port += 1
+        
+    print("Server up on: " + str(home_ip) + ", " + str(port))
+
+    while True:
+        s.listen(1)
+
+        new_client, client_address = s.accept()
+
+        new_player = PlayerHandler.PlayerHandler(new_client)
+        players.append(new_player)
+
+    s.close()
+
 
 if __name__ == "__main__":
-    main(sys.argv)
-
-# with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-#     s.bind((HOST, PORT))
-#     s.listen()
-#     conn, addr = s.accept()
-#     with conn:
-#         print('Connected by', addr)
-#         while True:
-#             data = conn.recv(1024)
-#             if not data:
-#                 break
-#             conn.sendall(data)
+    main()

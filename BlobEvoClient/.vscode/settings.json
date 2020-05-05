@@ -1,9 +1,9 @@
 {
 	"files.exclude": {
-		"D:/Cpp/BlobEvo/BlobEvo/.vs": true,
-		"D:/Cpp/BlobEvo/BlobEvo/.vscode": true,
-		"D:/Cpp/BlobEvo/BlobEvo/Content": true,
-		"D:/Cpp/BlobEvo/BlobEvo/Intermediate": true,
-		"D:/Cpp/BlobEvo/BlobEvo/Saved": true
+		"D:/Cpp/BlobEvo/BlobEvoClient/.vs": true,
+		"D:/Cpp/BlobEvo/BlobEvoClient/.vscode": true,
+		"D:/Cpp/BlobEvo/BlobEvoClient/Content": true,
+		"D:/Cpp/BlobEvo/BlobEvoClient/Intermediate": true,
+		"D:/Cpp/BlobEvo/BlobEvoClient/Saved": true
 	}
 }
