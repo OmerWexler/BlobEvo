@@ -15,7 +15,7 @@ public:
 	// Sets default values for this pawn's properties
 	ABlob();
 
-protected:
+private:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
@@ -35,7 +35,7 @@ protected:
 	bool bIsCannibal = false;
 
 	UPROPERTY()
-	FVector* InitialTranslation;
+	FVector InitialTranslation;
 	
 	UPROPERTY()
 	int32 FoodEaten = 0;
