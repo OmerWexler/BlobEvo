@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
+#include "GameManager.h"
 #include "BlobEvoGameModeBase.generated.h"
 
 /**
@@ -13,5 +14,5 @@ UCLASS()
 class BLOBEVO_API ABlobEvoGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
-	
+
 };
