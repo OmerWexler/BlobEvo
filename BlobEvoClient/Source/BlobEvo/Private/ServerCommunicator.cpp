@@ -21,43 +21,6 @@ UServerCommunicator::UServerCommunicator()
 void UServerCommunicator::BeginPlay()
 {
 	Super::BeginPlay();
-
-	Socket = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateSocket(NAME_Stream, TEXT("default"), false);
-
-	TSharedRef<FInternetAddr> Addr = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateInternetAddr();
-	FIPv4Address Ipv4(Ip[0], Ip[1], Ip[2], Ip[3]);
-	Addr->SetIp(Ipv4.Value);
-	Addr->SetPort(Port);
-
-	bool connected = Socket->Connect(*Addr);
-	if (connected) 
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Connected"));
-		
-		uint8* Data = new uint8[4];
-		int32 Bytes;
-		StringToBytes(FString(TEXT("BBBB")), Data, 4);
-
-		if (Data) 
-		{
-			Socket->Send(Data, 4, Bytes);
-			UE_LOG(LogTemp, Warning, TEXT("Sent %i bytes"), Bytes);
-		}
-
-		FString Received;
-		Recv(Received, 4, ESocketReceiveFlags::WaitAll);
-		// Socket->Recv(Data, 4, Bytes, ESocketReceiveFlags::WaitAll);
-
-		// if (Data) 
-		// {
-		// 	UE_LOG(LogTemp, Warning, TEXT("Received %i bytes: %s"), Bytes, *BytesToString(Data, 4));
-		// }
-
-
-		delete Data;
-	}
-	// ...
-	
 }
 
 
@@ -65,7 +28,6 @@ void UServerCommunicator::BeginPlay()
 void UServerCommunicator::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
 	// ...
 }
 
@@ -78,6 +40,12 @@ bool UServerCommunicator::Connect()
 	Addr->SetPort(Port);
 
 	Connected = Socket->Connect(*Addr);
+
+	if (Connected)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("%s is connected to %i.%i.%i.%i at port %i."), *GetOwner()->GetName(), Ip[0], Ip[1], Ip[2], Ip[3], Port);
+	}
+
 	return Connected;
 }
 
@@ -91,14 +59,14 @@ int32 UServerCommunicator::Recv(FString Data, int32 NuberOfBytesToRecv, ESocketR
 		Socket->Recv(Buffer, NuberOfBytesToRecv, BytesReceived, Flags);
 		Data = BytesToString(Buffer, NuberOfBytesToRecv);
 
-		UE_LOG(LogTemp, Warning, TEXT("Received %i bytes: %s"), BytesReceived, *Data);
+		UE_LOG(LogTemp, Warning, TEXT("%s received %i bytes: %s from server."), *GetOwner()->GetName(), BytesReceived, *Data);
 
 		delete Buffer;
 		return BytesReceived;
 	}
 	else 
 	{
-		
+		UE_LOG(LogTemp, Warning, TEXT("%s Unable to recv until connected to server."), *GetOwner()->GetName());
 	}
 	return 0;
 }
@@ -107,11 +75,19 @@ int32 UServerCommunicator::Send(FString Data)
 {
 	if (Connected)
 	{
+		uint8* Buffer = new uint8[Data.Len()];
+		int32 BytesSent;
+		StringToBytes(Data, Buffer, Data.Len());
 
+		Socket->Send(Buffer, 4, BytesSent);
+		UE_LOG(LogTemp, Warning, TEXT("%s sent %i bytes: %s to server."), *GetOwner()->GetName(), BytesSent, *Data);
+
+		delete Buffer;
+		return BytesSent;
 	}
 	else 
 	{
-		
+		UE_LOG(LogTemp, Warning, TEXT("%s Unable to send until connected to server."), *GetOwner()->GetName());
 	}
 	return 0;
 }
