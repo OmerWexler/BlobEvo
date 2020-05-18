@@ -15,7 +15,7 @@ def start_accepting_clients():
     global players
         
     home_ip = "127.0.0.1" 
-    port = 63000
+    port = 2000
     bind_successful = False
 
     while (not bind_successful):

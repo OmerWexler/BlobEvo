@@ -16,7 +16,7 @@
 #define DEFAULT_BUFLEN 512
 
 int ConnectTo(SOCKET& ConnectSocket, PCSTR ServerAddress, PCSTR ServerPort) {
-    WSADATA wsaData;
+    ;
 
     int iResult;
 

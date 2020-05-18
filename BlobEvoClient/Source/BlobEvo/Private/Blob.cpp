@@ -40,7 +40,7 @@ void ABlob::RandomizeTimeToRedirection() {
 }
 
 bool ABlob::ShouldLive() {
-	return DonutsToReproduce >= DonutsEaten;
+	return DonutsEaten >= DonutsToLive;
 }
 
 int32 ABlob::GetNumberOfNewBlobs() {

@@ -5,124 +5,124 @@
 			"name": "BlobEvo (Debug)",
 			"request": "launch",
 			"preLaunchTask": "BlobEvo Win64 Debug Build",
-			"program": "C:\\Users\\Omer Wexler\\Desktop\\Cpp\\BlobEvo\\BlobEvoClient\\Binaries\\Win64\\UE4-Win64-Debug.exe",
+			"program": "G:\\Cpp\\BlobEvo\\BlobEvoClient\\Binaries\\Win64\\UE4-Win64-Debug.exe",
 			"args": [
 			],
-			"cwd": "C:\\Program Files\\Epic Games\\UE_4.25",
+			"cwd": "D:\\Epic\\UE_4.25",
 			"stopAtEntry": false,
 			"externalConsole": true,
 			"type": "cppvsdbg",
-			"visualizerFile": "C:\\Program Files\\Epic Games\\UE_4.25\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+			"visualizerFile": "D:\\Epic\\UE_4.25\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
 		},
 		{
 			"name": "BlobEvo (DebugGame)",
 			"request": "launch",
 			"preLaunchTask": "BlobEvo Win64 DebugGame Build",
-			"program": "C:\\Users\\Omer Wexler\\Desktop\\Cpp\\BlobEvo\\BlobEvoClient\\Binaries\\Win64\\UE4-Win64-DebugGame.exe",
+			"program": "G:\\Cpp\\BlobEvo\\BlobEvoClient\\Binaries\\Win64\\UE4-Win64-DebugGame.exe",
 			"args": [
 			],
-			"cwd": "C:\\Program Files\\Epic Games\\UE_4.25",
+			"cwd": "D:\\Epic\\UE_4.25",
 			"stopAtEntry": false,
 			"externalConsole": true,
 			"type": "cppvsdbg",
-			"visualizerFile": "C:\\Program Files\\Epic Games\\UE_4.25\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+			"visualizerFile": "D:\\Epic\\UE_4.25\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
 		},
 		{
 			"name": "BlobEvo (Development)",
 			"request": "launch",
 			"preLaunchTask": "BlobEvo Win64 Development Build",
-			"program": "C:\\Users\\Omer Wexler\\Desktop\\Cpp\\BlobEvo\\BlobEvoClient\\Binaries\\Win64\\UE4.exe",
+			"program": "G:\\Cpp\\BlobEvo\\BlobEvoClient\\Binaries\\Win64\\UE4.exe",
 			"args": [
 			],
-			"cwd": "C:\\Program Files\\Epic Games\\UE_4.25",
+			"cwd": "D:\\Epic\\UE_4.25",
 			"stopAtEntry": false,
 			"externalConsole": true,
 			"type": "cppvsdbg",
-			"visualizerFile": "C:\\Program Files\\Epic Games\\UE_4.25\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+			"visualizerFile": "D:\\Epic\\UE_4.25\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
 		},
 		{
 			"name": "BlobEvo (Shipping)",
 			"request": "launch",
 			"preLaunchTask": "BlobEvo Win64 Shipping Build",
-			"program": "C:\\Users\\Omer Wexler\\Desktop\\Cpp\\BlobEvo\\BlobEvoClient\\Binaries\\Win64\\UE4-Win64-Shipping.exe",
+			"program": "G:\\Cpp\\BlobEvo\\BlobEvoClient\\Binaries\\Win64\\UE4-Win64-Shipping.exe",
 			"args": [
 			],
-			"cwd": "C:\\Program Files\\Epic Games\\UE_4.25",
+			"cwd": "D:\\Epic\\UE_4.25",
 			"stopAtEntry": false,
 			"externalConsole": true,
 			"type": "cppvsdbg",
-			"visualizerFile": "C:\\Program Files\\Epic Games\\UE_4.25\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+			"visualizerFile": "D:\\Epic\\UE_4.25\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
 		},
 		{
 			"name": "BlobEvo (Test)",
 			"request": "launch",
 			"preLaunchTask": "BlobEvo Win64 Test Build",
-			"program": "C:\\Users\\Omer Wexler\\Desktop\\Cpp\\BlobEvo\\BlobEvoClient\\Binaries\\Win64\\UE4-Win64-Test.exe",
+			"program": "G:\\Cpp\\BlobEvo\\BlobEvoClient\\Binaries\\Win64\\UE4-Win64-Test.exe",
 			"args": [
 			],
-			"cwd": "C:\\Program Files\\Epic Games\\UE_4.25",
+			"cwd": "D:\\Epic\\UE_4.25",
 			"stopAtEntry": false,
 			"externalConsole": true,
 			"type": "cppvsdbg",
-			"visualizerFile": "C:\\Program Files\\Epic Games\\UE_4.25\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+			"visualizerFile": "D:\\Epic\\UE_4.25\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
 		},
 		{
 			"name": "BlobEvoEditor (Debug)",
 			"request": "launch",
 			"preLaunchTask": "BlobEvoEditor Win64 Debug Build",
-			"program": "C:\\Program Files\\Epic Games\\UE_4.25\\Engine\\Binaries\\Win64\\UE4Editor-Win64-Debug.exe",
+			"program": "D:\\Epic\\UE_4.25\\Engine\\Binaries\\Win64\\UE4Editor-Win64-Debug.exe",
 			"args": [
-				"C:\\Users\\Omer Wexler\\Desktop\\Cpp\\BlobEvo\\BlobEvoClient\\BlobEvo.uproject"
+				"G:\\Cpp\\BlobEvo\\BlobEvoClient\\BlobEvo.uproject"
 			],
-			"cwd": "C:\\Program Files\\Epic Games\\UE_4.25",
+			"cwd": "D:\\Epic\\UE_4.25",
 			"stopAtEntry": false,
 			"externalConsole": true,
 			"type": "cppvsdbg",
-			"visualizerFile": "C:\\Program Files\\Epic Games\\UE_4.25\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+			"visualizerFile": "D:\\Epic\\UE_4.25\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
 		},
 		{
 			"name": "BlobEvoEditor (DebugGame)",
 			"request": "launch",
 			"preLaunchTask": "BlobEvoEditor Win64 DebugGame Build",
-			"program": "C:\\Program Files\\Epic Games\\UE_4.25\\Engine\\Binaries\\Win64\\UE4Editor-Win64-DebugGame.exe",
+			"program": "D:\\Epic\\UE_4.25\\Engine\\Binaries\\Win64\\UE4Editor-Win64-DebugGame.exe",
 			"args": [
-				"C:\\Users\\Omer Wexler\\Desktop\\Cpp\\BlobEvo\\BlobEvoClient\\BlobEvo.uproject"
+				"G:\\Cpp\\BlobEvo\\BlobEvoClient\\BlobEvo.uproject"
 			],
-			"cwd": "C:\\Program Files\\Epic Games\\UE_4.25",
+			"cwd": "D:\\Epic\\UE_4.25",
 			"stopAtEntry": false,
 			"externalConsole": true,
 			"type": "cppvsdbg",
-			"visualizerFile": "C:\\Program Files\\Epic Games\\UE_4.25\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+			"visualizerFile": "D:\\Epic\\UE_4.25\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
 		},
 		{
 			"name": "BlobEvoEditor (Development)",
 			"request": "launch",
 			"preLaunchTask": "BlobEvoEditor Win64 Development Build",
-			"program": "C:\\Program Files\\Epic Games\\UE_4.25\\Engine\\Binaries\\Win64\\UE4Editor.exe",
+			"program": "D:\\Epic\\UE_4.25\\Engine\\Binaries\\Win64\\UE4Editor.exe",
 			"args": [
-				"C:\\Users\\Omer Wexler\\Desktop\\Cpp\\BlobEvo\\BlobEvoClient\\BlobEvo.uproject"
+				"G:\\Cpp\\BlobEvo\\BlobEvoClient\\BlobEvo.uproject"
 			],
-			"cwd": "C:\\Program Files\\Epic Games\\UE_4.25",
+			"cwd": "D:\\Epic\\UE_4.25",
 			"stopAtEntry": false,
 			"externalConsole": true,
 			"type": "cppvsdbg",
-			"visualizerFile": "C:\\Program Files\\Epic Games\\UE_4.25\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+			"visualizerFile": "D:\\Epic\\UE_4.25\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
 		},
 		{
 			"name": "Generate Project Files",
 			"type": "clr",
 			"request": "launch",
-			"program": "C:\\Program Files\\Epic Games\\UE_4.25\\Engine\\Binaries\\DotNET\\UnrealBuildTool.exe",
+			"program": "D:\\Epic\\UE_4.25\\Engine\\Binaries\\DotNET\\UnrealBuildTool.exe",
 			"console": "externalTerminal",
 			"args": [
 				"-projectfiles",
 				"-vscode",
-				"-project=\"C:\\Users\\Omer Wexler\\Desktop\\Cpp\\BlobEvo\\BlobEvoClient\\BlobEvo.uproject\"",
+				"-project=\"G:\\Cpp\\BlobEvo\\BlobEvoClient\\BlobEvo.uproject\"",
 				"-game",
 				"-engine"
 			],
 			"internalConsoleOptions": "openOnSessionStart",
-			"cwd": "C:\\Program Files\\Epic Games\\UE_4.25"
+			"cwd": "D:\\Epic\\UE_4.25"
 		}
 	]
 }

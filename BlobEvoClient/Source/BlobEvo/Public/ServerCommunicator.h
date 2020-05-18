@@ -2,9 +2,16 @@
 
 #pragma once
 
+
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+
+#include "SocketSubsystem.h"
+#include "Interfaces/IPv4/IPv4Address.h"
+#include "Sockets.h"
+
 #include "ServerCommunicator.generated.h"
+
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -21,8 +28,23 @@ protected:
 	virtual void BeginPlay() override;
 
 public:	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 Port;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<int32> Ip;
+
+	FSocket* Socket;
+
+	UPROPERTY()
+	bool Connected;
+
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	
+	bool Connect();
+	
+	int32 Recv(FString Data, int32 NuberOfBytesToRecv, ESocketReceiveFlags::Type Flags);
 
-		
+	int32 Send(FString Data);
 };

@@ -1,9 +1,10 @@
 {
 	"files.exclude": {
-		"C:/Users/Omer Wexler/Desktop/Cpp/BlobEvo/BlobEvoClient/.vscode": true,
-		"C:/Users/Omer Wexler/Desktop/Cpp/BlobEvo/BlobEvoClient/Content": true,
-		"C:/Users/Omer Wexler/Desktop/Cpp/BlobEvo/BlobEvoClient/DerivedDataCache": true,
-		"C:/Users/Omer Wexler/Desktop/Cpp/BlobEvo/BlobEvoClient/Intermediate": true,
-		"C:/Users/Omer Wexler/Desktop/Cpp/BlobEvo/BlobEvoClient/Saved": true
+		"G:/Cpp/BlobEvo/BlobEvoClient/.vs": true,
+		"G:/Cpp/BlobEvo/BlobEvoClient/.vscode": true,
+		"G:/Cpp/BlobEvo/BlobEvoClient/Content": true,
+		"G:/Cpp/BlobEvo/BlobEvoClient/DerivedDataCache": true,
+		"G:/Cpp/BlobEvo/BlobEvoClient/Intermediate": true,
+		"G:/Cpp/BlobEvo/BlobEvoClient/Saved": true
 	}
 }
