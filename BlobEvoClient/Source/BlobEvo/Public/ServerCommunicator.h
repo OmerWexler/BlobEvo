@@ -4,7 +4,7 @@
 
 
 #include "CoreMinimal.h"
-#include "Components/ActorComponent.h"
+#include "GameFramework/Actor.h"
 
 #include "SocketSubsystem.h"
 #include "Interfaces/IPv4/IPv4Address.h"
@@ -15,19 +15,18 @@
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class BLOBEVO_API UServerCommunicator : public UActorComponent
+class BLOBEVO_API AServerCommunicator : public AActor
 {
 	GENERATED_BODY()
 
 public:	
 	// Sets default values for this component's properties
-	UServerCommunicator();
+	AServerCommunicator();
 
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
-public:	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 Port;
 
@@ -39,12 +38,17 @@ public:
 	UPROPERTY()
 	bool Connected;
 
+	int32 HEADER_SIZE = 3;
+
+public:	
 	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	virtual void Tick(float DeltaTime) override;
 	
 	bool Connect();
 	
-	int32 Recv(FString Data, int32 NuberOfBytesToRecv, ESocketReceiveFlags::Type Flags);
+	int32 Recv(FString &Data, int32 NuberOfBytesToRecv, ESocketReceiveFlags::Type Flags);
 
 	int32 Send(FString Data);
+
+	bool HasPendingData(uint32 & PendingDataSize);
 };
