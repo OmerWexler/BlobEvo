@@ -21,11 +21,6 @@ void ABlobProtocolCommunicator::Tick(float DeltaTime)
     
     if (ArePeriodicChecksEnabled) 
     {
-        if (!Connected)
-        {
-            Connect();
-            ReportNewBLobDirection(100, 15);
-        }
         if (Connected) {
             CheckPendingReports();
         }

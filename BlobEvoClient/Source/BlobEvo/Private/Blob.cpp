@@ -35,10 +35,6 @@ void ABlob::EatDonut(AActor* Donut) {
 	DonutsEaten++;
 }
 
-void ABlob::RandomizeTimeToRedirection() {
-	TimeToNextRedirection = FMath::RandRange(MinRedirectionInterval, MaxRedirectionInterval);
-}
-
 bool ABlob::ShouldLive() {
 	return DonutsEaten >= DonutsToLive;
 }

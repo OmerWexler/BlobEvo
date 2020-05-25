@@ -31,6 +31,9 @@ protected:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int NumberOfDonuts;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int NumberOfBlobs;
 
 public:	
 	// Called every frame

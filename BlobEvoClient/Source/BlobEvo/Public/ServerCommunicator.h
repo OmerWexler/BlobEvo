@@ -44,11 +44,12 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 	
+	UFUNCTION(BlueprintCallable)
 	bool Connect();
 	
 	int32 Recv(FString &Data, int32 NuberOfBytesToRecv, ESocketReceiveFlags::Type Flags);
 
-	int32 Send(FString Data);
+	virtual int32 Send(FString Data);
 
 	bool HasPendingData(uint32 & PendingDataSize);
 };

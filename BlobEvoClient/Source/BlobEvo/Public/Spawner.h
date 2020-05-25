@@ -23,9 +23,9 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	
+
 	UFUNCTION(BlueprintCallable, Category = "Spawner")
-	TArray<AActor*> SpawnByCount(int32 Count);  
+	TArray<AActor*> SpawnByCount(int32 Count, TSubclassOf<AActor> ClassToSpawn);  
 
 	void GenerateRandomSpawningLocation(FVector& OutLocation);
 	void AddSpawnVolume(AActor* NewVolume);
@@ -33,9 +33,6 @@ public:
 private:
 	UPROPERTY(EditAnywhere, Category=Spawning)
 	int32 SpawnSpacing = 100;
-
-	UPROPERTY(EditAnywhere, Category=Spawning)
-	TSubclassOf<AActor> SpawnClass;
 
 	UPROPERTY(EditAnywhere, Category=Spawning)
 	FVector SpawnOffset;

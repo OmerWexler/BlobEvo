@@ -29,12 +29,6 @@ public:
 
 protected:
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float TimeToNextRedirection = 0.f;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float MinRedirectionInterval = 2.0;
-	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	int32 DonutsToReproduce = 2;
 	
@@ -42,16 +36,10 @@ protected:
 	int32 DonutsToLive = 1;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float MaxRedirectionInterval = 4.0;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float MovementSpeed;
 
 	UPROPERTY(BlueprintReadWrite)
 	bool bIsInRound = false;
-
-	UPROPERTY(BlueprintReadWrite)
-	bool bHitSpawner = false;
 
 	UPROPERTY(BlueprintReadWrite)
 	int32 DonutsEaten = 0;
@@ -61,9 +49,6 @@ protected:
 
 	UFUNCTION(BlueprintCallable)
 	void EatDonut(AActor* Donut);
-
-	UFUNCTION(BlueprintCallable)
-	void RandomizeTimeToRedirection();
 
 private:
 	// Called when the game starts or when spawned

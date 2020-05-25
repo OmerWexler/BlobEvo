@@ -28,10 +28,11 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<ABlob*> Blobs;
+	
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	int32 BlobsPerPlayer;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<ABlob*> Blobs;
 };
