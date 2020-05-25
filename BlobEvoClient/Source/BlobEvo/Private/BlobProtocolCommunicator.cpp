@@ -93,7 +93,7 @@ void ABlobProtocolCommunicator::CheckPendingReports()
             Recv(BlobID, BLOB_ID_SIZE, ESocketReceiveFlags::None);
             Recv(Direction, BLOB_DIRECTION_SIZE, ESocketReceiveFlags::None);
             
-            UE_LOG(LogTemp, Warning, TEXT("Added direction \"%i\" to blob \"%i\""), FCString::Atoi(*Direction), FCString::Atoi(*BlobID));
+            UE_LOG(LogTemp, Warning, TEXT("Received direction \"%i\" to blob \"%i\""), FCString::Atoi(*Direction), FCString::Atoi(*BlobID));
             StoredBlobDirections.Add(FCString::Atoi(*BlobID), FCString::Atoi(*Direction));
         }
     }

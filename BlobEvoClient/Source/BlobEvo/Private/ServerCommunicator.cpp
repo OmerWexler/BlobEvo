@@ -104,3 +104,39 @@ bool AServerCommunicator::HasPendingData(uint32& PendingDataSize)
 	}
 	
 }
+
+FString AServerCommunicator::Wrap(int32 Value, int32 ToSize)
+{
+	return Wrap(FString::FromInt(Value), ToSize);
+}
+
+FString AServerCommunicator::Wrap(float Value, int32 ToSize)
+{
+	return Wrap(FString::SanitizeFloat(Value), ToSize);
+}
+
+FString AServerCommunicator::Wrap(FString Value, int32 ToSize)
+{
+	FString AsFString = Value;
+
+	if (AsFString.Len() > ToSize)
+	{
+		TArray<TCHAR> AsChars = AsFString.GetCharArray();
+		AsFString = FString(TEXT(""));
+		
+		for (int i = 0; i < ToSize; i++) 
+		{
+			AsFString += AsChars[i];
+		}
+	}
+	
+	else if (AsFString.Len() < ToSize)
+	{
+		while (AsFString.Len() < ToSize) 
+		{
+			AsFString = FString(TEXT("0")) + AsFString;
+		}
+	}
+
+	return AsFString;
+}

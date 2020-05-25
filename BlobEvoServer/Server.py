@@ -5,6 +5,8 @@ IP = "127.0.0.1"
 
 # Player managment
 PLAYER_PORT = 2000
+REPORT_PLAYER_HEADER = "RNP"
+PLAYER_COUNT_HEADER = "PCH"
 
 def main():
     players = []
@@ -24,22 +26,45 @@ def accept_clients(server: socket.socket, client_base: list):
 
         client_base.append(client)
 
-        handle_client_thread = threading.Thread(target=handle_client, args=(len(client_base) - 1, client_base, ))
+        handle_client_thread = threading.Thread(target=handle_player, args=(len(client_base) - 1, client_base, ))
         handle_client_thread.start()
 
 
-def handle_client(client_id: int, client_base: list):
+def handle_player(client_id: int, client_base: list):
     while True:
         length = client_base[client_id].recv(2).decode()
-        length = int(''.join(chr(ord(letter) + 1) for letter in length))
+        length = int(from_cpp_to_python(length))
 
         msg = client_base[client_id].recv(length)
-
-        print(str(client_id) + " Recv - " + ''.join(chr(ord(letter) + 1) for letter in msg.decode()))
-
-        for i in range(0, len(client_base) - 1):
-            if not i == client_id:
+        translated_msg = from_cpp_to_python(msg.decode())
+        
+        for i in range(0, len(client_base)):
+            if i != client_id:
+                print(str(client_id) + " Send - " + translated_msg)
                 client_base[i].send(msg)
+
+        print(str(client_id) + " Recv - " + translated_msg)
+        
+        if translated_msg[0:3] == REPORT_PLAYER_HEADER:
+            report_player_count(len(client_base), client_base[client_id])
+
+
+def report_player_count(player_count: int, client: socket.socket):
+    msg = ''
+    msg += PLAYER_COUNT_HEADER
+    
+    if player_count < 10:
+        msg += '0'
+
+    msg += str(player_count)
+    client.send(from_pyhton_to_cpp(msg).encode())
+
+
+def from_cpp_to_python(msg: str):
+    return ''.join(chr(ord(letter) + 1) for letter in msg)
+
+def from_pyhton_to_cpp(msg: str):
+    return ''.join(chr(ord(letter) - 1) for letter in msg)
 
 # def accept_clients():
 #     global players

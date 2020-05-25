@@ -52,4 +52,8 @@ public:
 	virtual int32 Send(FString Data);
 
 	bool HasPendingData(uint32 & PendingDataSize);
+
+	FString Wrap(int32 Value, int32 ToSize);
+	FString Wrap(float Value, int32 ToSize);
+	FString Wrap(FString Value, int32 ToSize);
 };
