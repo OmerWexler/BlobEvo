@@ -1,10 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
+#include "ServerCommunicator.h"
+
 #include "HAL/Platform.h"
 #include "Containers/UnrealString.h"
 #include "SocketTypes.h"
-
-#include "ServerCommunicator.h"
 
 // Sets default values for this component's properties
 AServerCommunicator::AServerCommunicator()
@@ -75,8 +75,11 @@ int32 AServerCommunicator::Send(FString Data)
 {
 	if (Connected)
 	{
+		Data = Wrap(Data.Len(), 2) + Data;
+		
 		uint8* Buffer = new uint8[Data.Len()];
 		int32 BytesSent;
+
 		StringToBytes(Data, Buffer, Data.Len());
 
 		Socket->Send(Buffer, Data.Len(), BytesSent);
@@ -103,6 +106,45 @@ bool AServerCommunicator::HasPendingData(uint32& PendingDataSize)
 		return false;
 	}
 	
+}
+
+void AServerCommunicator::RecvVector(FVector& OutVector)
+{
+	FString XSize, YSize, ZSize;
+	FString PlayerID, X, Y, Z;
+	
+	Recv(XSize, VECTOR_COMPONENT_SIZE_SIZE, ESocketReceiveFlags::None);
+	Recv(X, FCString::Atoi(*XSize), ESocketReceiveFlags::None);
+	
+	Recv(YSize, VECTOR_COMPONENT_SIZE_SIZE, ESocketReceiveFlags::None);
+	Recv(Y, FCString::Atoi(*YSize), ESocketReceiveFlags::None);
+	
+	Recv(ZSize, VECTOR_COMPONENT_SIZE_SIZE, ESocketReceiveFlags::None);
+	Recv(Z, FCString::Atoi(*ZSize), ESocketReceiveFlags::None);
+
+	OutVector.X = FCString::Atof(*X);
+	OutVector.Y = FCString::Atof(*Y);
+	OutVector.Z = FCString::Atof(*Z);
+}
+
+FString AServerCommunicator::Wrap(FVector Value)
+{
+	FString AsMsg = FString(TEXT(""));
+
+	FString X = FString::FromInt(Value.X);
+	FString Y = FString::FromInt(Value.Y);
+	FString Z = FString::FromInt(Value.Z);
+
+	AsMsg += Wrap(X.Len(), VECTOR_COMPONENT_SIZE_SIZE);
+	AsMsg += Wrap(X, X.Len());
+
+	AsMsg += Wrap(Y.Len(), VECTOR_COMPONENT_SIZE_SIZE);
+	AsMsg += Wrap(Y, Y.Len());
+
+	AsMsg += Wrap(Z.Len(), VECTOR_COMPONENT_SIZE_SIZE);
+	AsMsg += Wrap(Z, Z.Len());
+
+	return AsMsg;
 }
 
 FString AServerCommunicator::Wrap(int32 Value, int32 ToSize)

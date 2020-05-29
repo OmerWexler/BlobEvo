@@ -38,7 +38,11 @@ protected:
 	UPROPERTY()
 	bool Connected;
 
+	int32 PLAYER_ID_SIZE = 2;
+	int32 BLOB_ID_SIZE_SIZE = 1;
+
 	int32 HEADER_SIZE = 3;
+	int32 VECTOR_COMPONENT_SIZE_SIZE = 1;
 
 public:	
 	// Called every frame
@@ -46,13 +50,15 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	bool Connect();
-	
+
 	int32 Recv(FString &Data, int32 NuberOfBytesToRecv, ESocketReceiveFlags::Type Flags);
 
 	virtual int32 Send(FString Data);
 
 	bool HasPendingData(uint32 & PendingDataSize);
 
+	void RecvVector(FVector& OutVector);
+	FString Wrap(FVector Value);
 	FString Wrap(int32 Value, int32 ToSize);
 	FString Wrap(float Value, int32 ToSize);
 	FString Wrap(FString Value, int32 ToSize);

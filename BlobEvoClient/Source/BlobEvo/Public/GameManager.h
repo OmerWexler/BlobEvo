@@ -21,19 +21,7 @@ protected:
 	virtual void BeginPlay() override;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float TimeBetweenRounds;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float RoundLength;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<AActor*> AllDonuts;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int NumberOfDonuts;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int NumberOfBlobs;
 
 public:	
 	// Called every frame

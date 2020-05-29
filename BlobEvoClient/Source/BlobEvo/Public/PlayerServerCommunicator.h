@@ -16,7 +16,6 @@ class BLOBEVO_API APlayerServerCommunicator : public AServerCommunicator
 	
 public:
 	virtual void Tick(float DeltaTime) override;
-	int32 Send(FString Data) override;
 
 	UFUNCTION(BlueprintCallable)
 	void JoinGame(int32& OutPlayerCount);
@@ -35,7 +34,6 @@ public:
 
 private:
 	int32 PLAYER_COUNT_SIZE = 2;
-	int32 PLAYER_ID_SIZE = 2;
 	int32 LOCATION_COMPONENET_SIZE_SIZE = 1;
 
 	int32 NewPlayers = 0;
