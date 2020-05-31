@@ -64,10 +64,10 @@ int32 AServerCommunicator::Recv(FString &Data, int32 NuberOfBytesToRecv, ESocket
 		delete Buffer;
 		return BytesReceived;
 	}
-	else 
-	{
-		// UE_LOG(LogTemp, Warning, TEXT("%s Unable to recv until connected to server."), *GetName());
-	}
+	// else 
+	// {
+	// 	UE_LOG(LogTemp, Warning, TEXT("%s Unable to recv until connected to server."), *GetName());
+	// }
 	return 0;
 }
 
@@ -88,10 +88,10 @@ int32 AServerCommunicator::Send(FString Data)
 		delete Buffer;
 		return BytesSent;
 	}
-	else 
-	{
-		// UE_LOG(LogTemp, Warning, TEXT("%s Unable to send until connected to server."), *GetName());
-	}
+	// else 
+	// {
+	// 	UE_LOG(LogTemp, Warning, TEXT("%s Unable to send until connected to server."), *GetName());
+	// }
 	return 0;
 }
 

@@ -18,7 +18,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION(BlueprintCallable)
-	void JoinGame(int32& OutPlayerCount);
+	void JoinGame(FString Name, int32 &OutPlayerID);
 
 	UFUNCTION(BlueprintCallable)
 	void ReportNewLocation(int32 PlayerID, FVector NewVector);
@@ -27,22 +27,20 @@ public:
 	bool CheckForNewLocation(int32 ID, FVector& OutVector);
 
 	UFUNCTION(BlueprintCallable)
-	int32 GetNewPlayerCount();
-
-	UFUNCTION(BlueprintCallable)
-	void PopPlayer();
+	bool GetLastNewPlayer(FString& OutPlayerName);
 
 private:
-	int32 PLAYER_COUNT_SIZE = 2;
-	int32 LOCATION_COMPONENET_SIZE_SIZE = 1;
+	int32 PLAYER_ID_SIZE = 2;
+	int32 PLAYER_NAME_SIZE_SIZE = 2;
 
-	int32 NewPlayers = 0;
-	
 	FString NEW_PLAYER_REPORT_HEADER = FString(TEXT("RNP"));
 	FString NEW_LOCATION_REPORT_HEADER = FString(TEXT("RNL"));
-	FString PLAYER_COUNT_HEADER = FString(TEXT("PCH"));
+	FString PLAYER_ID_HEADER = FString(TEXT("PIH"));
 
 	TMap<int32, FVector> StoredLocations;
+	
+	bool bIsNewPlayer = false;
+	FString LastNewPlayerName;
 
 	void CheckIncomingLocationReports();
 	void CheckIncomingPlayerReports();

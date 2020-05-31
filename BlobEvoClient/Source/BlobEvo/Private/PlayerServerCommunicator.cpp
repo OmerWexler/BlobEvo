@@ -9,23 +9,29 @@ void APlayerServerCommunicator::Tick(float DeltaTime)
     CheckIncomingPlayerReports();
 }
 
-void APlayerServerCommunicator::JoinGame(int32& OutPlayerCount)
+void APlayerServerCommunicator::JoinGame(FString Name, int32 &OutPlayerID)
 {
     if (Connected)
     {
-        Send(NEW_PLAYER_REPORT_HEADER);
+        FString Msg = FString(TEXT(""));
 
+        Msg += NEW_PLAYER_REPORT_HEADER;
+        Msg += Wrap(Name.Len(), PLAYER_NAME_SIZE_SIZE);
+        Msg += Wrap(Name, Name.Len());
+
+        Send(Msg);
+        
         FString Header = FString(TEXT(""));
         Recv(Header, Super::HEADER_SIZE, ESocketReceiveFlags::Peek);
 
-        if (Header.Equals(PLAYER_COUNT_HEADER))
+        if (Header.Equals(PLAYER_ID_HEADER))
         {
             Recv(Header, Super::HEADER_SIZE, ESocketReceiveFlags::None);
 
-            FString PlayerCount = FString(TEXT(""));
-            Recv(PlayerCount, PLAYER_COUNT_SIZE, ESocketReceiveFlags::None);
+            FString NewPlayerID = FString(TEXT(""));
+            Recv(NewPlayerID, PLAYER_ID_SIZE, ESocketReceiveFlags::None);
 
-            OutPlayerCount = FCString::Atoi(*PlayerCount);
+            OutPlayerID = FCString::Atoi(*NewPlayerID);
         }
     }
 }
@@ -95,18 +101,27 @@ void APlayerServerCommunicator::CheckIncomingPlayerReports()
             if (Header.Equals(NEW_PLAYER_REPORT_HEADER, ESearchCase::IgnoreCase))
             {
                 Recv(Header, Super::HEADER_SIZE, ESocketReceiveFlags::None);
-                NewPlayers ++;
+             
+                FString ID, Name, NameSize;
+                Recv(NameSize, PLAYER_NAME_SIZE_SIZE, ESocketReceiveFlags::None);
+                Recv(Name, FCString::Atoi(*NameSize), ESocketReceiveFlags::None);
+
+                LastNewPlayerName = Name;
+                bIsNewPlayer = true;
             }
         }
     }
 }
 
-int32 APlayerServerCommunicator::GetNewPlayerCount()
+bool APlayerServerCommunicator::GetLastNewPlayer(FString& OutPlayerName)
 {
-    return NewPlayers;
-}
+    if (bIsNewPlayer)
+    {
+        bIsNewPlayer = false;
+        OutPlayerName = LastNewPlayerName;
 
-void APlayerServerCommunicator::PopPlayer()
-{
-    NewPlayers--;
+        return true;
+    }
+
+    return false;
 }

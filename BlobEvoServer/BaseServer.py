@@ -57,9 +57,10 @@ class BaseServer:
                         client_base[i].send(msg)
 
                 print(self.name + " | " + " id - " + str(client_id) + " received - " + translated_msg + "\n")
-                self.client_msg_callback(translated_msg, client_id, client_base)
+                self.client_msg_callback(msg, client_id, client_base)
         except:
-            pass
+            client_base.remove(client_base[client_id])
             
-    def client_msg_callback(self, translated_msg: str, client_id: int, client_base: list):
+
+    def client_msg_callback(self, msg: str, client_id: int, client_base: list):
         pass

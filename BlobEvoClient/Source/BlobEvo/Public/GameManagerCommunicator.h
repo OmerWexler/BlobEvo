@@ -55,13 +55,9 @@ public:
 	/* End Round */
 
 private:
-	FString START_BLOB_SPAWN_STREAM_HEADER = FString(TEXT("SBS"));
 	FString BLOB_SPAWN_HEADER = FString(TEXT("RBS"));
-	FString END_BLOB_SPAWN_STREAM_HEADER = FString(TEXT("EBS"));
 
-	FString START_DONUT_SPAWN_STREAM_HEADER = FString(TEXT("SDS"));
 	FString DONUT_SPAWN_HEADER = FString(TEXT("RDS"));
-	FString END_DONUT_SPAWN_STREAM_HEADER = FString(TEXT("EDS"));
 	
 	FString BEGIN_ROUND_HEADER = FString(TEXT("RBR"));
 	FString END_ROUND_HEADER = FString(TEXT("RER"));
