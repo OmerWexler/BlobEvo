@@ -109,7 +109,7 @@ AActor* ASpawner::SpawnByLocation(FVector SpawnLocation,TSubclassOf<AActor> Clas
 	return nullptr;
 }
 
-void ASpawner::AddSpawnVolume(AActor* NewVolume) 
+void ASpawner::AddSpawnVolume(AActor* NewVolume)
 {
 	SpawnVolumes.Add(NewVolume);
 }
