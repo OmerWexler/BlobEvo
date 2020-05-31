@@ -17,64 +17,6 @@ void AGameManagerCommunicator::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
-void AGameManagerCommunicator::ReportGameReady()
-{
-    if (Connected)
-    {
-        Send(GAME_READY_HEADER);
-    }
-}
-
-bool AGameManagerCommunicator::CheckIfGameReady()
-{
-    if (Connected)
-    {
-        uint32 PendingData; 
-        if (HasPendingData(PendingData))
-        {
-            FString Header;
-            Recv(Header, Super::HEADER_SIZE, ESocketReceiveFlags::Peek);
-            
-            if (Header.Equals(GAME_READY_HEADER, ESearchCase::IgnoreCase))
-            {
-                Recv(Header, Super::HEADER_SIZE, ESocketReceiveFlags::None);
-                return true;
-            }
-        }
-    }
-
-    return false;
-}
-
-void AGameManagerCommunicator::ReportStartOfBlobStream()
-{
-    if (Connected)
-    {
-        Send(START_BLOB_SPAWN_STREAM_HEADER);
-    }
-}
-
-bool AGameManagerCommunicator::CheckIfBlobStreamStarted()
-{
-    if (Connected)
-    {
-        uint32 PendingData; 
-        if (HasPendingData(PendingData))
-        {
-            FString Header;
-            Recv(Header, Super::HEADER_SIZE, ESocketReceiveFlags::Peek);
-            
-            if (Header.Equals(START_BLOB_SPAWN_STREAM_HEADER, ESearchCase::IgnoreCase))
-            {
-                Recv(Header, Super::HEADER_SIZE, ESocketReceiveFlags::None);
-                return true;
-            }
-        }
-    }
-
-    return false;
-}
-
 void AGameManagerCommunicator::ReportBlobSpawn(FString BlobID, int32 PlayerID, FVector SpawnLocation)
 {
     if (Connected)
@@ -106,13 +48,15 @@ bool AGameManagerCommunicator::ReceiveBlobSpawn(FString& BlobID, int32& PlayerID
             {
                 Recv(Header, Super::HEADER_SIZE, ESocketReceiveFlags::None);
                 
-                FString BlobIDSize, PlayerIDS;
+                FString BlobIDSize, BlobIDS, PlayerIDS;
 
                 Recv(BlobIDSize, Super::BLOB_ID_SIZE_SIZE, ESocketReceiveFlags::None);
-                Recv(BlobID, FCString::Atoi(*BlobIDSize), ESocketReceiveFlags::None);
+                Recv(BlobIDS, FCString::Atoi(*BlobIDSize), ESocketReceiveFlags::None);
                 
                 Recv(PlayerIDS, Super::PLAYER_ID_SIZE, ESocketReceiveFlags::None);
+                
                 PlayerID = FCString::Atoi(*PlayerIDS);
+                BlobID = FString(TEXT("")) + BlobIDS;
 
                 RecvVector(SpawnLocation);
 
@@ -124,15 +68,19 @@ bool AGameManagerCommunicator::ReceiveBlobSpawn(FString& BlobID, int32& PlayerID
     return false;
 }
 
-void AGameManagerCommunicator::ReportEndOfBlobStream()
+void AGameManagerCommunicator::ReportDonutSpawn(FVector SpawnLocation)
 {
     if (Connected)
     {
-        Send(END_BLOB_SPAWN_STREAM_HEADER);
+        FString Msg = FString(TEXT(""));
+        Msg += DONUT_SPAWN_HEADER;
+        Msg += Super::Wrap(SpawnLocation);
+
+        Send(Msg);
     }
 }
 
-bool AGameManagerCommunicator::CheckIfBlobStreamEnded()
+bool AGameManagerCommunicator::ReceiveDonutSpawn(FVector& SpawnLocation)
 {
     if (Connected)
     {
@@ -142,9 +90,11 @@ bool AGameManagerCommunicator::CheckIfBlobStreamEnded()
             FString Header;
             Recv(Header, Super::HEADER_SIZE, ESocketReceiveFlags::Peek);
 
-            if (Header.Equals(END_BLOB_SPAWN_STREAM_HEADER, ESearchCase::IgnoreCase))
+            if (Header.Equals(DONUT_SPAWN_HEADER, ESearchCase::IgnoreCase))
             {
                 Recv(Header, Super::HEADER_SIZE, ESocketReceiveFlags::None);
+                RecvVector(SpawnLocation);
+
                 return true;
             }
         }
@@ -172,6 +122,35 @@ bool AGameManagerCommunicator::CheckIfRoundBegan()
             Recv(Header, Super::HEADER_SIZE, ESocketReceiveFlags::Peek);
 
             if (Header.Equals(BEGIN_ROUND_HEADER, ESearchCase::IgnoreCase))
+            {
+                Recv(Header, Super::HEADER_SIZE, ESocketReceiveFlags::None);
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+void AGameManagerCommunicator::ReportRoundEnd()
+{    
+    if (Connected)
+    {
+        Send(END_ROUND_HEADER);
+    }
+}
+
+bool AGameManagerCommunicator::CheckIfRoundEnded()
+{
+    if (Connected)
+    {
+        uint32 PendingData; 
+        if (HasPendingData(PendingData))
+        {
+            FString Header;
+            Recv(Header, Super::HEADER_SIZE, ESocketReceiveFlags::Peek);
+
+            if (Header.Equals(END_ROUND_HEADER, ESearchCase::IgnoreCase))
             {
                 Recv(Header, Super::HEADER_SIZE, ESocketReceiveFlags::None);
                 return true;

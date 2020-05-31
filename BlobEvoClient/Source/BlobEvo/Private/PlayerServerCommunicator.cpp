@@ -63,8 +63,6 @@ void APlayerServerCommunicator::CheckIncomingLocationReports()
                 FVector NewVector;
                 Super::RecvVector(NewVector);
                 
-                UE_LOG(LogTemp, Warning, TEXT("Received vector \"%s\" to puppet \"%i\""), *NewVector.ToString(), FCString::Atoi(*PlayerID));
-
                 StoredLocations.Add(FCString::Atoi(*PlayerID), NewVector);
             }
         }
@@ -97,8 +95,6 @@ void APlayerServerCommunicator::CheckIncomingPlayerReports()
             if (Header.Equals(NEW_PLAYER_REPORT_HEADER, ESearchCase::IgnoreCase))
             {
                 Recv(Header, Super::HEADER_SIZE, ESocketReceiveFlags::None);
-                UE_LOG(LogTemp, Warning, TEXT("A new player has joined"));
-
                 NewPlayers ++;
             }
         }

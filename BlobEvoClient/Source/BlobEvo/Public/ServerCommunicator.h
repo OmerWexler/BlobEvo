@@ -42,7 +42,7 @@ protected:
 	int32 BLOB_ID_SIZE_SIZE = 1;
 
 	int32 HEADER_SIZE = 3;
-	int32 VECTOR_COMPONENT_SIZE_SIZE = 1;
+	int32 VECTOR_COMPONENT_SIZE_SIZE = 2;
 
 public:	
 	// Called every frame
@@ -57,8 +57,12 @@ public:
 
 	bool HasPendingData(uint32 & PendingDataSize);
 
+	void RecvTransform(FTransform& OutTransform);
+	FString Wrap(FTransform Value);
+
 	void RecvVector(FVector& OutVector);
 	FString Wrap(FVector Value);
+	
 	FString Wrap(int32 Value, int32 ToSize);
 	FString Wrap(float Value, int32 ToSize);
 	FString Wrap(FString Value, int32 ToSize);

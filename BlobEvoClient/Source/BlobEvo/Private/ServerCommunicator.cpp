@@ -41,10 +41,10 @@ bool AServerCommunicator::Connect()
 
 	Connected = Socket->Connect(*Addr);
 
-	if (Connected)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("%s is connected to %i.%i.%i.%i at port %i."), *GetName(), Ip[0], Ip[1], Ip[2], Ip[3], Port);
-	}
+	// if (Connected)
+	// {
+	// 	UE_LOG(LogTemp, Warning, TEXT("%s is connected to %i.%i.%i.%i at port %i."), *GetName(), Ip[0], Ip[1], Ip[2], Ip[3], Port);
+	// }
 
 	return Connected;
 }
@@ -59,14 +59,14 @@ int32 AServerCommunicator::Recv(FString &Data, int32 NuberOfBytesToRecv, ESocket
 		Socket->Recv(Buffer, NuberOfBytesToRecv, BytesReceived, Flags);
 		Data += BytesToString(Buffer, NuberOfBytesToRecv);
 
-		UE_LOG(LogTemp, Warning, TEXT("%s received %i bytes: %s from server."), *GetName(), BytesReceived, *Data);
+		// UE_LOG(LogTemp, Warning, TEXT("%s received %i bytes: %s from server."), *GetName(), BytesReceived, *Data);
 
 		delete Buffer;
 		return BytesReceived;
 	}
 	else 
 	{
-		UE_LOG(LogTemp, Warning, TEXT("%s Unable to recv until connected to server."), *GetName());
+		// UE_LOG(LogTemp, Warning, TEXT("%s Unable to recv until connected to server."), *GetName());
 	}
 	return 0;
 }
@@ -83,14 +83,14 @@ int32 AServerCommunicator::Send(FString Data)
 		StringToBytes(Data, Buffer, Data.Len());
 
 		Socket->Send(Buffer, Data.Len(), BytesSent);
-		UE_LOG(LogTemp, Warning, TEXT("%s sent %i bytes: %s to server."), *GetName(), BytesSent, *Data);
+		// UE_LOG(LogTemp, Warning, TEXT("%s sent %i bytes: %s to server."), *GetName(), BytesSent, *Data);
 
 		delete Buffer;
 		return BytesSent;
 	}
 	else 
 	{
-		UE_LOG(LogTemp, Warning, TEXT("%s Unable to send until connected to server."), *GetName());
+		// UE_LOG(LogTemp, Warning, TEXT("%s Unable to send until connected to server."), *GetName());
 	}
 	return 0;
 }
@@ -106,6 +106,33 @@ bool AServerCommunicator::HasPendingData(uint32& PendingDataSize)
 		return false;
 	}
 	
+}
+
+void AServerCommunicator::RecvTransform(FTransform& OutTransform)
+{
+	OutTransform = FTransform();
+	FVector Translation;
+	RecvVector(Translation);
+
+	FString Yaw, YawSize;
+	Recv(YawSize, VECTOR_COMPONENT_SIZE_SIZE, ESocketReceiveFlags::None);
+	Recv(Yaw, FCString::Atoi(*YawSize), ESocketReceiveFlags::None);
+
+	OutTransform.SetTranslation(Translation);
+	OutTransform.SetRotation(FQuat(FRotator(0.0, FCString::Atof(*Yaw), 0.0)));
+}
+
+FString AServerCommunicator::Wrap(FTransform Value){
+	FString AsMsg = FString(TEXT(""));
+
+	AsMsg += Wrap(Value.GetLocation());
+
+	FString Yaw = FString::SanitizeFloat(Value.Rotator().Yaw);
+
+	AsMsg += Wrap(Yaw.Len(), VECTOR_COMPONENT_SIZE_SIZE);
+	AsMsg += Wrap(Yaw, Yaw.Len());
+
+	return AsMsg;
 }
 
 void AServerCommunicator::RecvVector(FVector& OutVector)
@@ -131,9 +158,9 @@ FString AServerCommunicator::Wrap(FVector Value)
 {
 	FString AsMsg = FString(TEXT(""));
 
-	FString X = FString::FromInt(Value.X);
-	FString Y = FString::FromInt(Value.Y);
-	FString Z = FString::FromInt(Value.Z);
+	FString X = FString::SanitizeFloat(Value.X);
+	FString Y = FString::SanitizeFloat(Value.Y);
+	FString Z = FString::SanitizeFloat(Value.Z);
 
 	AsMsg += Wrap(X.Len(), VECTOR_COMPONENT_SIZE_SIZE);
 	AsMsg += Wrap(X, X.Len());

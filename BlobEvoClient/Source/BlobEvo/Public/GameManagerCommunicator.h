@@ -21,35 +21,23 @@ protected:
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	
-	/* Game Ready */
-	UFUNCTION(BlueprintCallable)
-	void ReportGameReady();
-	
-	UFUNCTION(BlueprintCallable)
-	bool CheckIfGameReady();
-	/* Game Ready */
-	
+
 	/* Blob Spawns */
-	UFUNCTION(BlueprintCallable)
-	void ReportStartOfBlobStream();
-	
 	UFUNCTION(BlueprintCallable)
 	void ReportBlobSpawn(FString BlobID, int32 PlayerID, FVector SpawnLocation);
 	
 	UFUNCTION(BlueprintCallable)
 	bool ReceiveBlobSpawn(FString& BlobID, int32& PlayerID, FVector& SpawnLocation);
-	
-	UFUNCTION(BlueprintCallable)
-	bool CheckIfBlobStreamStarted();
-	
-	UFUNCTION(BlueprintCallable)
-	void ReportEndOfBlobStream();
-
-	UFUNCTION(BlueprintCallable)
-	bool CheckIfBlobStreamEnded();
 	/* Blob Spawns */
 
+	/* Donut Spawns */
+	UFUNCTION(BlueprintCallable)
+	void ReportDonutSpawn(FVector SpawnLocation);
+	
+	UFUNCTION(BlueprintCallable)
+	bool ReceiveDonutSpawn(FVector& SpawnLocation);
+	/* Donut Spawns */
+	
 	/* Begin Round */
 	UFUNCTION(BlueprintCallable)
 	void ReportBeginRound();
@@ -58,12 +46,23 @@ public:
 	bool CheckIfRoundBegan();
 	/* Begin Round */
 
-private:
-	FString GAME_READY_HEADER = FString(TEXT("RGR"));
+	/* End Round */
+	UFUNCTION(BlueprintCallable)
+	void ReportRoundEnd();
+	
+	UFUNCTION(BlueprintCallable)
+	bool CheckIfRoundEnded();
+	/* End Round */
 
+private:
 	FString START_BLOB_SPAWN_STREAM_HEADER = FString(TEXT("SBS"));
 	FString BLOB_SPAWN_HEADER = FString(TEXT("RBS"));
 	FString END_BLOB_SPAWN_STREAM_HEADER = FString(TEXT("EBS"));
+
+	FString START_DONUT_SPAWN_STREAM_HEADER = FString(TEXT("SDS"));
+	FString DONUT_SPAWN_HEADER = FString(TEXT("RDS"));
+	FString END_DONUT_SPAWN_STREAM_HEADER = FString(TEXT("EDS"));
 	
-	FString BEGIN_ROUND_HEADER = FString(TEXT("RBG"));
+	FString BEGIN_ROUND_HEADER = FString(TEXT("RBR"));
+	FString END_ROUND_HEADER = FString(TEXT("RER"));
 };

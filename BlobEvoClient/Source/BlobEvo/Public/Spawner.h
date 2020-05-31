@@ -26,6 +26,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Spawner")
 	TArray<AActor*> SpawnByCount(int32 Count, TSubclassOf<AActor> ClassToSpawn);  
+	
+	UFUNCTION(BlueprintCallable, Category = "Spawner")
+	AActor* SpawnByLocation(FVector SpawnLocation, TSubclassOf<AActor> ClassToSpawn);  
 
 	void GenerateRandomSpawningLocation(FVector& OutLocation);
 	void AddSpawnVolume(AActor* NewVolume);
@@ -42,6 +45,4 @@ private:
 
 	UPROPERTY()
 	TArray<AActor*> SpawnVolumes;
-
-	AActor* SpawnSingle(FVector location, FRotator rotation);
 };

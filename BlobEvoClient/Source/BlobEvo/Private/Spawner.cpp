@@ -63,7 +63,6 @@ void ASpawner::GenerateRandomSpawningLocation(FVector& OutLocation)
 
 TArray<AActor*> ASpawner::SpawnByCount(int32 Count, TSubclassOf<AActor> ClassToSpawn) 
 {
-	bool bActorIsOnSpawner;
 	FActorSpawnParameters spawnParams;
 	Spawns = TArray<AActor*>();
 
@@ -81,13 +80,33 @@ TArray<AActor*> ASpawner::SpawnByCount(int32 Count, TSubclassOf<AActor> ClassToS
 				FRotator rotation = FRotator(0, 0, FMath::RandRange(0, 1000) / 1000.0);
 				AActor* NewSpawn = World->SpawnActor<AActor>(ClassToSpawn, Location, rotation, spawnParams);
 				
-				bActorIsOnSpawner = true;
 				Spawns.Add(NewSpawn);
 			}
 		} 
 	}
 	
 	return Spawns;
+}
+
+AActor* ASpawner::SpawnByLocation(FVector SpawnLocation,TSubclassOf<AActor> ClassToSpawn)
+{
+	FActorSpawnParameters spawnParams;
+
+	if (ClassToSpawn) 
+	{
+		UWorld* World = GetWorld();
+
+		if (World) {
+			SpawnLocation = SpawnLocation + SpawnOffset;
+
+			FRotator rotation = FRotator(0, 0, 0);
+			AActor* NewSpawn = World->SpawnActor<AActor>(ClassToSpawn, SpawnLocation, rotation, spawnParams);
+			
+			return NewSpawn;
+		} 
+	}
+	
+	return nullptr;
 }
 
 void ASpawner::AddSpawnVolume(AActor* NewVolume) 

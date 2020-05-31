@@ -19,23 +19,77 @@ void ABlobDirectionCommunicator::Tick(float DeltaTime)
     }
 }
 
-void ABlobDirectionCommunicator::ReportNewBlobDirection(FString BlobID, int32 NewDirection)
+// void ABlobDirectionCommunicator::ReportNewBlobDirection(FString BlobID, int32 NewDirection)
+// {
+//     FString Msg = FString(TEXT(""));
+//     Msg += DIRECTION_REPORT_HEADER;
+    
+//     Msg += Wrap(BlobID.Len(), Super::BLOB_ID_SIZE_SIZE);
+//     Msg += Wrap(BlobID, BlobID.Len());
+//     Msg += Wrap(NewDirection, 4);
+
+//     Send(Msg);
+// }
+
+// bool ABlobDirectionCommunicator::CheckForNewBlobDirection(FString BlobID, int32& OutDirection)
+// {
+//     if (StoredBlobDirections.Contains(BlobID)) 
+//     {
+//         OutDirection = StoredBlobDirections[BlobID];
+//         StoredBlobDirections.Remove(BlobID);
+//         return true;
+//     }
+//     else 
+//     {
+//         return false;
+//     }
+// }
+
+// void ABlobDirectionCommunicator::CheckPendingReports()
+// {
+//     if (Connected)
+//     {
+//         uint32 PendingData; 
+//         if (HasPendingData(PendingData))
+//         {
+//             FString Header;
+//             Recv(Header, Super::HEADER_SIZE, ESocketReceiveFlags::Peek);
+
+//             if (Header.Equals(DIRECTION_REPORT_HEADER, ESearchCase::IgnoreCase))
+//             {
+//                 Recv(Header, Super::HEADER_SIZE, ESocketReceiveFlags::None);
+
+//                 FString BLOB_ID_SIZE, BlobID, Direction;
+//                 FTransform Transform;
+
+//                 Recv(BLOB_ID_SIZE, Super::BLOB_ID_SIZE_SIZE, ESocketReceiveFlags::None);
+//                 Recv(BlobID, FCString::Atoi(*BLOB_ID_SIZE), ESocketReceiveFlags::None);
+//                 Recv(Direction, 4, ESocketReceiveFlags::None);
+
+                
+//                 StoredBlobDirections.Add(BlobID, FCString::Atoi(*Direction));
+//             }
+//         }
+//     }
+// }
+
+void ABlobDirectionCommunicator::ReportNewBlobDirection(FString BlobID, FTransform NewTransform)
 {
     FString Msg = FString(TEXT(""));
     Msg += DIRECTION_REPORT_HEADER;
     
     Msg += Wrap(BlobID.Len(), Super::BLOB_ID_SIZE_SIZE);
     Msg += Wrap(BlobID, BlobID.Len());
-    Msg += Wrap(NewDirection, BLOB_DIRECTION_SIZE);
+    Msg += Wrap(NewTransform);
 
     Send(Msg);
 }
 
-bool ABlobDirectionCommunicator::CheckForNewBlobDirection(FString BlobID, int32& OutDirection)
+bool ABlobDirectionCommunicator::CheckForNewBlobDirection(FString BlobID, FTransform& OutTransform)
 {
     if (StoredBlobDirections.Contains(BlobID)) 
     {
-        OutDirection = StoredBlobDirections[BlobID];
+        OutTransform = StoredBlobDirections[BlobID];
         StoredBlobDirections.Remove(BlobID);
         return true;
     }
@@ -60,13 +114,14 @@ void ABlobDirectionCommunicator::CheckPendingReports()
                 Recv(Header, Super::HEADER_SIZE, ESocketReceiveFlags::None);
 
                 FString BLOB_ID_SIZE, BlobID, Direction;
+                FTransform Transform;
 
                 Recv(BLOB_ID_SIZE, Super::BLOB_ID_SIZE_SIZE, ESocketReceiveFlags::None);
                 Recv(BlobID, FCString::Atoi(*BLOB_ID_SIZE), ESocketReceiveFlags::None);
                 
-                Recv(Direction, BLOB_DIRECTION_SIZE, ESocketReceiveFlags::None);
+                RecvTransform(Transform);
                 
-                StoredBlobDirections.Add(BlobID, FCString::Atoi(*Direction));
+                StoredBlobDirections.Add(BlobID, Transform);
             }
         }
     }

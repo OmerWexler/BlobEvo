@@ -17,7 +17,7 @@ class BaseServer:
         outer_server = socket.socket()
         
         if self.OUTER_IP != None:
-            outer_server.bind((self.IP, self.port))
+            outer_server.bind((self.OUTER_IP, self.port))
             outer_server.listen(5)
             
             player_server_accept_thread = threading.Thread(target=self.accept_clients, args=(outer_server, client_base, ))
@@ -34,7 +34,7 @@ class BaseServer:
     def accept_clients(self, server: socket.socket, client_base: list):
         while True:
             client, addr = server.accept()
-            print(self.name + " | found client on - " + str(addr))
+            print(self.name + " | found client on - " + str(addr) + "\n")
 
             client_base.append(client)
 
@@ -43,21 +43,23 @@ class BaseServer:
 
 
     def handle_client(self, client_id: int, client_base: list):
-        while True:
-            length = client_base[client_id].recv(2).decode()
-            length = int(from_cpp_to_python(length))
+        try:
+            while True:
+                length = client_base[client_id].recv(2).decode()
+                length = int(from_cpp_to_python(length))
 
-            msg = client_base[client_id].recv(length)
-            translated_msg = from_cpp_to_python(msg.decode())
-            
-            for i in range(0, len(client_base)):
-                if i != client_id:
-                    print(self.name + " | " + " id - " + str(client_id) + " sent - " + translated_msg)
-                    client_base[i].send(msg)
+                msg = client_base[client_id].recv(length)
+                translated_msg = from_cpp_to_python(msg.decode())
+                
+                for i in range(0, len(client_base)):
+                    if i != client_id:
+                        print(self.name + " | " + " id - " + str(client_id) + " sent - " + translated_msg + "\n")
+                        client_base[i].send(msg)
 
-            print(self.name + " | " + " id - " + str(client_id) + " received - " + translated_msg)
-            self.client_msg_callback(translated_msg, client_id, client_base)
-
+                print(self.name + " | " + " id - " + str(client_id) + " received - " + translated_msg + "\n")
+                self.client_msg_callback(translated_msg, client_id, client_base)
+        except:
+            pass
             
     def client_msg_callback(self, translated_msg: str, client_id: int, client_base: list):
         pass

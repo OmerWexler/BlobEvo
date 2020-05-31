@@ -22,17 +22,25 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	// UFUNCTION(BlueprintCallable)
+	// void ReportNewBlobDirection(FString BlobID, int32 NewDirection);	
+	
+	// UFUNCTION(BlueprintCallable)
+	// bool CheckForNewBlobDirection(FString BlobID, int32& OutDirection);
+	
+
 	UFUNCTION(BlueprintCallable)
-	void ReportNewBlobDirection(FString BlobID, int32 NewDirection);	
+	void ReportNewBlobDirection(FString BlobID, FTransform NewTransform);	
 	
 	UFUNCTION(BlueprintCallable)
-	bool CheckForNewBlobDirection(FString BlobID, int32& OutDirection);
+	bool CheckForNewBlobDirection(FString BlobID, FTransform& NewTransform);
 	
 private:
-	int32 BLOB_DIRECTION_SIZE = 3;
+	int32 BLOB_DIRECTION_SIZE = 5;
 	FString DIRECTION_REPORT_HEADER = FString(TEXT("RBD"));
 
-	TMap<FString, int32> StoredBlobDirections;
+	UPROPERTY(EditAnywhere)
+	TMap<FString, FTransform> StoredBlobDirections;
 
 	void CheckPendingReports();
 };

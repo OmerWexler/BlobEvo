@@ -2,7 +2,7 @@ import PlayerServer
 import GameManagerServer 
 import BlobDirectionServer 
 
-IP = None
+IP = "192.168.1.20"
 
 def main():
     player_server = PlayerServer.PlayerServer(IP)
